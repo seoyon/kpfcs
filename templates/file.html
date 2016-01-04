@@ -1,0 +1,39 @@
+{% if admin %}
+    <div id = "upload">
+        <form action = "/" method = "POST" enctype = "multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type = "hidden" name = "task" value = "upload" />
+            <input type = "submit" value = "Upload" />
+        </form>
+    </div>
+{% endif %}
+<div id = "file_list">
+    <table border = "1">
+        <tr>
+            <th>No.</th>
+            <th>File</th>
+            <th>Date</th>
+            {% if admin %}
+                <th></th>
+            {% endif %}
+        </tr>
+        {% for f in file_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href = "/attach/{{ f.id }}">{{ f.name }}</a></td>
+                <td>{{ f.date }}</td>
+                {% if admin %}
+                    <td>
+                        <form action = "/" method = "POST">
+                            {% csrf_token %}
+                            <input type = "hidden" name = "task" value = "delete" />
+                            <input type = "hidden" name = "id" value = "{{ f.id }}" />
+                            <input type = "submit" value = "Delete" />
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>

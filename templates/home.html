@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div id = "float" style = "float: right">
+        {% include "side.html" %}
+    </div>
+    <div id = "file_area">
+        {% include "file.html" %}
+    </div>
+{% endblock %}
